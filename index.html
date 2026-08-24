@@ -1,0 +1,81 @@
+<html lang="pt-br">
+    <head>
+        <title>App Games</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <style>
+            body{
+                margin: 0;
+                font: 16px Arial;
+                background: #181857;
+                color: #fff;
+            }
+            header{
+                padding: 24px;
+                text-align: center;
+            }
+            main{
+                max-width: 950px;
+                margin: auto;
+                padding: 20px;
+            }
+            .grid{
+                display: grid;
+                grid-template-columns: repeat(auto-fit, mimac(180px, 1fr));
+                gap: 16px
+            }
+            .game{
+                overflow: hidden;
+                background: #31316e;
+                border-radius: 18px;
+            }
+            @media (max-width: 520px) {
+                header{
+                    text-align: left;
+                }
+                .grid{
+                    grid-template-columns: repeat(2, 1fr);
+                }
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <header>
+            <h1>App Games</h1>
+            <P>Escolha seu próximo jogo!</P>
+        </header>
+
+        <main>
+            <div class="grid" id="games">
+                Carregando jogos...
+            </div>
+        </main>
+
+        <script>
+            const API= "https://gamerpower.com/api/giveaways?type=game";
+
+            async function carregarJogos() {
+                const resposta = await fetch(API);
+                const jogos = await resposta.json()
+                console.log(jogos)
+                const grid = document.querySelector("#games");
+                grid.innerHTML = "";
+
+                jogos.forEach(jogo => {
+                    grid.innerHTML += `
+                      <article class="game"> 
+                       <img src="${jogo.thumbnail}" alt="${jogo.thumbnail}"
+                       <h3>${jogo.title}</h3>
+                      </article>
+                    `
+                })
+
+            }
+            
+            carregarJogos()
+
+        </script>
+    </body>
+</html>
