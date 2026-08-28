@@ -19,7 +19,7 @@ async function carregarJogos() {
     jogos.forEach(jogo => {
       grid.innerHTML += `
                     <article class="game">
-                        <img src="${jogo.thumbnail}" alt="${jogo.title}">
+                    <img src="${jogo.thumbnail}" alt="${jogo.title}" loading="lazy">
                         <h3>${jogo.title}</h3>
                     </article>
                 `;
